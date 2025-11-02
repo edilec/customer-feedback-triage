@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1",
+  "taxonomy": [
+    {"tag": "billing", "keywords": ["invoice", "payment"]},
+    {"tag": "delivery", "keywords": ["shipping", "delay"]}
+  ],
+  "feedback": [
+    {"id": "fb-001", "redacted": true, "redactedText": "Invoice was delayed", "semanticSuggestions": [{"tag": "delivery", "confidence": 0.72}]},
+    {"id": "fb-002", "redacted": true, "redactedText": "Payment failed"}
+  ]
+}

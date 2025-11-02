@@ -1,13 +1,15 @@
 {
   "name": "customer-feedback-triage",
-  "version": "0.0.0",
-  "description": "Route feedback into themes, impact, evidence and a reviewable next action.",
+  "version": "1.0.0",
+  "description": "Offline, reviewable taxonomy suggestions for redacted feedback exports.",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test"
+    "lint": "node --check src/index.mjs && node --check bin/customer-feedback-triage.mjs",
+    "test": "node --test",
+    "check": "npm run lint && npm test"
   },
   "license": "MIT",
   "repository": {
