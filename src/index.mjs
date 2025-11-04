@@ -35,7 +35,7 @@ function tooDeep(x,depth=0){if(depth>LIMITS.depth)return true;if(!x||typeof x!==
 function hits(text,word){const escaped=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return (text.match(new RegExp(`(^|[^a-z0-9])${escaped}(?=$|[^a-z0-9])`,'g'))||[]).length;}
 
 export function triageFeedback(doc,now=()=>performance.now()){
-  const start=now(),findings=[],items=[],groups={};
+  const start=now(),findings=[],items=[],groups=Object.create(null);
   if(!obj(doc)||doc.schemaVersion!=='1'||!Array.isArray(doc.taxonomy)||!Array.isArray(doc.feedback)||!doc.taxonomy.length||!doc.feedback.length)return report([finding('input-invalid')]);
   if(tooDeep(doc))return report([finding('depth-limit')]);
   if(doc.taxonomy.length>LIMITS.taxonomy||doc.feedback.length>LIMITS.feedback)return report([finding('record-limit')]);

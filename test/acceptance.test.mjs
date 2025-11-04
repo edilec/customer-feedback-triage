@@ -85,6 +85,14 @@ test('overlapping taxonomy keyword fails policy and remains reviewable', () => {
   assert.equal(r.report.items[0].reviewState,'ambiguous');
 });
 
+test('valid constructor taxonomy tag groups without prototype collision', () => {
+  const d={schemaVersion:'1',taxonomy:[{tag:'constructor',keywords:['constructor']}],feedback:[{id:'fb-1',redacted:true,redactedText:'Constructor is slow'}]};
+  const r=run(d);
+  assert.equal(r.status,0);
+  assert.deepEqual(r.report.groups.constructor,['fb-1']);
+  assert.equal(r.report.items[0].candidates[0].ruleHits,1);
+});
+
 test('feedback bound accepts 1000 records and refuses 1001', () => {
   const d=structuredClone(good);d.feedback=Array.from({length:1000},(_,i)=>({id:`fb-${i}`,redacted:true,redactedText:'Invoice issue'}));
   assert.equal(run(d).status,0);
