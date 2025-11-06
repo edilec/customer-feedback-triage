@@ -93,6 +93,16 @@ test('valid constructor taxonomy tag groups without prototype collision', () => 
   assert.equal(r.report.items[0].candidates[0].ruleHits,1);
 });
 
+test('duplicate keyword within one tag is incomplete rather than double-counted', () => {
+  const d=structuredClone(good);
+  d.taxonomy[0].keywords=['invoice','invoice'];
+  const r=run(d);
+  assert.equal(r.status,2);
+  assert.equal(r.report.findings[0].ruleId,'taxonomy-invalid');
+  assert.equal(r.report.findings[0].location.pointer,'/taxonomy/0/keywords/1');
+  assert.deepEqual(r.report.items,[]);
+});
+
 test('feedback bound accepts 1000 records and refuses 1001', () => {
   const d=structuredClone(good);d.feedback=Array.from({length:1000},(_,i)=>({id:`fb-${i}`,redacted:true,redactedText:'Invoice issue'}));
   assert.equal(run(d).status,0);

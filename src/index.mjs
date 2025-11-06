@@ -44,6 +44,8 @@ export function triageFeedback(doc,now=()=>performance.now()){
     if(now()-start>LIMITS.milliseconds)return incomplete('time-limit');
     const pointer=`/taxonomy/${i}`;
     if(!obj(t)||!tag(t.tag)||!Array.isArray(t.keywords)||!t.keywords.length||t.keywords.length>LIMITS.keywords||!t.keywords.every(keyword)){findings.push(finding('taxonomy-invalid',pointer));continue;}
+    const duplicateKeyword=t.keywords.findIndex((w,j)=>t.keywords.indexOf(w)!==j);
+    if(duplicateKeyword!==-1){findings.push(finding('taxonomy-invalid',`${pointer}/keywords/${duplicateKeyword}`));continue;}
     if(tags.has(t.tag)){findings.push(finding('taxonomy-tag-duplicate',pointer));continue;}
     tags.set(t.tag,t.keywords);
     for(const w of t.keywords){if(words.has(w)&&words.get(w)!==t.tag)findings.push(finding('keyword-conflict',`${pointer}/keywords/${t.keywords.indexOf(w)}`));else words.set(w,t.tag);}
