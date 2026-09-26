@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1",
+  "taxonomy": [
+    {"tag": "billing", "keywords": ["invoice"]},
+    {"tag": "delivery", "keywords": ["invoice"]}
+  ],
+  "feedback": [
+    {"id": "fb-001", "redacted": true, "redactedText": "Invoice issue"}
+  ]
+}
